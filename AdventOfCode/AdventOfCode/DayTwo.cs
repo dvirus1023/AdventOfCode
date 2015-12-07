@@ -13,6 +13,7 @@ namespace AdventOfCode
         public static void Run()
         {
             PartOne();
+            PartTwo();
             
         }
 
@@ -22,6 +23,14 @@ namespace AdventOfCode
             var answer = packages.Sum(x => x.SquareFeet() + x.SmallestArea);
 
             Console.WriteLine($"Day 2 Answer 1: {answer}");
+        }
+
+        static void PartTwo()
+        {
+            var packages = input.Select(x => new Box() { Dimensions = x });
+            var answer = packages.Sum(x => x.SmallestPerimeter() + x.Volume());
+
+            Console.WriteLine($"Day 2 Answer 2: {answer}");
         }
         
     }
@@ -53,6 +62,37 @@ namespace AdventOfCode
         public int SquareFeet()
         {
             return (2 * Length * Width) + (2 * Width * Height) + (2 * Height * Length);
+        }
+
+        public int SmallestPerimeter()
+        {
+            int value1 = 0;
+            int value2 = 0;
+
+            var max = Math.Max(Length,Math.Max(Width,Height));
+
+            if(max == Length)
+            {
+                value1 = Width;
+                value2 = Height;
+
+            }else if(max == Width)
+            {
+                value1 = Height;
+                value2 = Length;
+
+            }else
+            {
+                value1 = Length;
+                value2 = Width;
+            }
+
+            return value1 * 2 + value2 * 2;
+        }
+
+        public int Volume()
+        {
+            return Height * Width * Length;
         }
 
     }

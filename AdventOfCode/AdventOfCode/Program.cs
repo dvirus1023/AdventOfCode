@@ -11,8 +11,10 @@ namespace AdventOfCode
         static void Main(string[] args)
         {
 
-            DayOne.Run();
-            DayTwo.Run();
+            //DayOne.Run();
+            //DayTwo.Run();
+            //DayThree.Run();
+            //DayFour.Run();
 
             Console.ReadKey();
         }
