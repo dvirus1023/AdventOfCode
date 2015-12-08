@@ -30,18 +30,18 @@ namespace AdventOfCode
             // Does not contain ab,cd,pq,xy 
             var disqualifiers = new List<string>(){ "ab","cd","pq","xy" };
 
-            int answer = input.Count(x => regVowels.IsMatch(x) && regDouble.IsMatch(x));
+            int answer = input.Count(x => regVowels.IsMatch(x) && regDouble.IsMatch(x) && disqualifiers.Count(d => x.Contains(d)) == 0);
            
-            Console.WriteLine($"Day 4 Part One Answer : {answer}");
+            Console.WriteLine($"Day 5 Part 1 Answer : {answer}");
 
         }
 
         static void PartTwo()
         {
 
-            int answer = 1;
+            int answer = 0;
            
-            Console.WriteLine($"Day 4 Part 2 Answer : {answer}");
+            Console.WriteLine($"Day 5 Part 2 Answer : {answer}");
         }
 
         static bool DQ(List<string> d, string record)
