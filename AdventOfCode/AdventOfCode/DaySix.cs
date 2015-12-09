@@ -23,8 +23,8 @@ namespace AdventOfCode
 
         static void PartOne()
         {
+            bool[,] lights = new bool[999, 999];
 
-            
             Console.WriteLine($"Day 6 Part One Answer : {answer}");
 
         }
