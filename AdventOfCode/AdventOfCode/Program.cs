@@ -15,7 +15,8 @@ namespace AdventOfCode
             //DayTwo.Run();
             //DayThree.Run();
             //DayFour.Run();
-            DayFive.Run();
+            //DayFive.Run();
+            DaySix.Run();
 
             Console.ReadKey();
         }
