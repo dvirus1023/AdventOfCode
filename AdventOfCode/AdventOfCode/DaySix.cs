@@ -23,21 +23,125 @@ namespace AdventOfCode
 
         static void PartOne()
         {
-            bool[,] lights = new bool[999, 999];
 
-            Console.WriteLine($"Day 6 Part One Answer : {answer}");
+            int answer = 0;
+            bool[,] lights = new bool[1000, 1000];
+            
+            var commands = input.Select(x => new Command(x));
+
+            foreach(var c in commands)
+            {
+                List<Location> locations = c.GetLocations();
+
+                switch(c.Action.Trim())
+                {
+                    case "turn on":
+                        locations.ForEach(x => lights[x.x, x.y] = true);
+                        break;
+                    case "turn off":
+                        locations.ForEach(x => lights[x.x, x.y] = false);
+                        break;
+                    case "toggle":
+                        locations.ForEach(x => lights[x.x, x.y] = !lights[x.x, x.y]);
+                        break;
+                }
+            }
+
+            foreach(var light in lights)
+            {
+                if(light)
+                {
+                    answer++;
+                }
+            }
+
+            Console.WriteLine($"Day 6 Part 1 Answer : {answer}");
 
         }
-
+        
         static void PartTwo()
         {
 
-            
-            
+            int answer = 0;
+            int[,] lights = new int[1000, 1000];
+
+            var commands = input.Select(x => new Command(x));
+
+            foreach (var c in commands)
+            {
+                List<Location> locations = c.GetLocations();
+
+                switch (c.Action.Trim())
+                {
+                    case "turn on":
+                        locations.ForEach(x => lights[x.x, x.y]++);
+                        break;
+                    case "turn off":
+                        locations.ForEach(x => {
+                            if (lights[x.x, x.y] > 0)
+                            {
+                                lights[x.x, x.y]--;
+                            }
+                        });
+                        break;
+                    case "toggle":
+                        locations.ForEach(x => lights[x.x, x.y] += 2);
+                        break;
+                }
+            }
+
+            foreach (var light in lights)
+            {
+                
+                answer += light;
+               
+            }
+
             Console.WriteLine($"Day 6 Part 2 Answer : {answer}");
         }
 
-      
+        class Location
+        {
+            public int x { get; set; }
+            public int y { get; set; }
+        }
+
+        class Command
+        {
+            public string Action { get; set; }
+            public int x1 { get; set; }
+            public int y1 { get; set; }
+            public int x2 { get; set; }
+            public int y2 { get; set; }
+
+            public Command(string input)
+            {
+                int firstNumber = input.IndexOfAny("0123456789".ToCharArray());
+                Action = input.Substring(0, firstNumber);
+                input = input.Replace(Action, "").Trim();
+                string[] locations = input.Split(new string[] { "through" }, StringSplitOptions.None);
+                x1 = Convert.ToInt32(locations[0].Split(',')[0]);
+                y1 = Convert.ToInt32(locations[0].Split(',')[1]);
+                x2 = Convert.ToInt32(locations[1].Split(',')[0]);
+                y2 = Convert.ToInt32(locations[1].Split(',')[1]);
+
+            }
+
+            public List<Location> GetLocations()
+            {
+                var locations = new List<Location>();
+
+                for(var x = x1; x <= x2; x++)
+                {
+                    for(var y = y1; y <= y2; y++)
+                    {
+                        locations.Add(new Location() { x = x, y = y });
+                    }
+                }
+
+                return locations;
+            }
+        }
 
     }
 
